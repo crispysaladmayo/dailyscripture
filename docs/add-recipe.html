@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New recipe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-frame">
+      <a class="btn btn--ghost" href="recipes.html" style="margin: -0.5rem 0 1rem; width: auto">Back</a>
+      <h1 class="title">New recipe</h1>
+      <main>
+        <div class="field">
+          <label for="recipe-title">Title</label>
+          <input id="recipe-title" type="text" />
+          <p class="field__error" id="recipe-title-error" hidden>Add a title.</p>
+        </div>
+        <div class="field">
+          <label for="recipe-ingredients">Ingredients</label>
+          <p class="caption">One per line</p>
+          <textarea id="recipe-ingredients"></textarea>
+          <p class="field__error" id="recipe-ingredients-error" hidden>Add at least one ingredient line.</p>
+        </div>
+        <div class="field">
+          <label for="recipe-steps">Steps</label>
+          <textarea id="recipe-steps"></textarea>
+          <p class="field__error" id="recipe-steps-error" hidden>Add cooking steps.</p>
+        </div>
+        <div class="field">
+          <label for="recipe-tags">Tags (optional)</label>
+          <input id="recipe-tags" type="text" placeholder="weeknight, mild…" />
+        </div>
+        <details class="macro-details">
+          <summary>Add nutrition per serving (for Today meal ideas)</summary>
+          <p class="caption" style="margin: 0.5rem 0 0.75rem">
+            Optional. Needed to show this recipe in <strong>Meal ideas for today</strong>.
+          </p>
+          <div class="field">
+            <label for="macro-kcal">Calories</label>
+            <input id="macro-kcal" type="text" inputmode="numeric" placeholder="e.g. 320" />
+          </div>
+          <div class="field macro-grid">
+            <div>
+              <label for="macro-p">Protein (g)</label>
+              <input id="macro-p" type="text" inputmode="decimal" placeholder="18" />
+            </div>
+            <div>
+              <label for="macro-c">Carbs (g)</label>
+              <input id="macro-c" type="text" inputmode="decimal" placeholder="30" />
+            </div>
+            <div>
+              <label for="macro-f">Fat (g)</label>
+              <input id="macro-f" type="text" inputmode="decimal" placeholder="12" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="macro-emphasis">Emphasis</label>
+            <select id="macro-emphasis">
+              <option value="">— Select —</option>
+              <option value="balanced">Balanced</option>
+              <option value="protein">Protein</option>
+              <option value="carbs">Carbs</option>
+              <option value="fat">Fat</option>
+            </select>
+          </div>
+        </details>
+        <p class="caption" style="margin-bottom: 1rem">
+          You’re responsible for accuracy; we use this for suggestions only.
+        </p>
+        <button type="button" class="btn btn--primary" data-save-recipe>Save recipe</button>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a href="today.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>
+        Today
+      </a>
+      <a href="log-week.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 8v8M8 12h8" /></svg>
+        Log
+      </a>
+      <a href="fridge.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M5 8h14" /></svg>
+        Fridge
+      </a>
+      <a href="recipes.html" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h5v18H6zM13 3h5v18h-5z" /></svg>
+        Recipes
+      </a>
+    </nav>
+    <script src="app.js"></script>
+  </body>
+</html>

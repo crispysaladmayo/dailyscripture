@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-frame">
+      <a class="btn btn--ghost" href="today.html" style="margin: -0.5rem 0 1rem; width: auto">Back</a>
+      <h1 class="title">Settings</h1>
+      <main>
+        <nav class="list-group" aria-label="Settings sections">
+          <a href="#"
+            >Household <span class="list-group__chev" aria-hidden="true">›</span><span class="caption" style="display: block; font-weight: 400">Jakarta, Indonesia</span></a
+          >
+          <a href="#"
+            >Child profile <span class="list-group__chev" aria-hidden="true">›</span><span class="caption" style="display: block; font-weight: 400">Maya · 3–5 · Egg</span></a
+          >
+          <a href="#">Account <span class="list-group__chev" aria-hidden="true">›</span></a>
+          <a href="#">About &amp; disclaimer <span class="list-group__chev" aria-hidden="true">›</span></a>
+        </nav>
+        <button type="button" class="btn btn--destructive">Sign out</button>
+      </main>
+    </div>
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a href="today.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>
+        Today
+      </a>
+      <a href="log-week.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 8v8M8 12h8" /></svg>
+        Log
+      </a>
+      <a href="fridge.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M5 8h14" /></svg>
+        Fridge
+      </a>
+      <a href="recipes.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h5v18H6zM13 3h5v18h-5z" /></svg>
+        Recipes
+      </a>
+    </nav>
+    <script src="app.js"></script>
+  </body>
+</html>

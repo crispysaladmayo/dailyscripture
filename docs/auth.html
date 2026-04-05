@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create your account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-frame">
+      <a class="btn btn--ghost" href="index.html" style="margin: -0.5rem 0 1rem; align-self: flex-start"
+        >Back</a
+      >
+      <main>
+        <h1 class="title" id="auth-title">Create your account</h1>
+        <p class="body-muted">
+          We use your profile to personalize food ideas only.
+        </p>
+        <form class="auth-form" action="onboarding.html" style="margin-top: 1.5rem">
+          <div class="field">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+          <p class="field__error" id="auth-inline-error" hidden>
+            This email is already registered. <a href="auth.html?mode=login">Log in</a> instead.
+          </p>
+          <button type="submit" class="btn btn--primary">Continue</button>
+        </form>
+        <p style="margin-top: 1rem; text-align: center; font-size: 0.875rem">
+          <a href="#" id="switch-mode">Already have an account? Log in</a>
+        </p>
+      </main>
+    </div>
+    <script>
+      (function () {
+        var params = new URLSearchParams(location.search);
+        var mode = params.get("mode") || "signup";
+        var title = document.getElementById("auth-title");
+        var switchEl = document.getElementById("switch-mode");
+        var pass = document.getElementById("password");
+        if (mode === "login") {
+          title.textContent = "Welcome back";
+          pass.setAttribute("autocomplete", "current-password");
+          switchEl.textContent = "Need an account? Sign up";
+          switchEl.href = "auth.html?mode=signup";
+        } else {
+          switchEl.textContent = "Already have an account? Log in";
+          switchEl.href = "auth.html?mode=login";
+        }
+      })();
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>

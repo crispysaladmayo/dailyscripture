@@ -2,6 +2,8 @@
 
 This is the **canonical procedure** for taking work from discovery to release in Cursor: **researching → designing → PRD (create + review) → development → technical testing → user testing → deployment**.
 
+**Repo note (Suppa monorepo):** The folder **`docs/`** at the repository root is reserved for the **GitHub Pages** static M1 prototype (synced from `Child Nutrition App/m1-hifi-prototype/`). Internal procedure and release placeholders live here under **`project-docs/`** instead.
+
 It aligns with [ABOUT-USER.md](../ABOUT-USER.md) ( **CPO stance + you** as the product decision hub) and the agent pack under [agents/](../agents/). In chats, **@-mention** the listed agent files when operating that phase.
 
 **Terminology**: In this SOP, **PRD** means the **Product Owner–owned product specification** (the “what” and “why”). The **technical specification** (the “how” at an engineering level, no production code) is produced by the Technical Writer role and approved by the Technical Architect before heavy build-out.
@@ -17,9 +19,9 @@ It aligns with [ABOUT-USER.md](../ABOUT-USER.md) ( **CPO stance + you** as the p
 
 **Where to store artifacts** (recommendation, not a hard rule):
 
-- PRD and research: `docs/` or `specs/` in the project repo.
+- PRD and research: product folder (e.g. `Child Nutrition App/`) or `specs/` in the project repo.
 - Technical spec: same place, clearly named (e.g. `specs/TECH-<feature>.md`).
-- Test plans and release notes: `docs/releases/` or next to the PRD.
+- Test plans and release notes: `project-docs/releases/` or next to the PRD.
 
 **Global gates** (from [ABOUT-USER.md](../ABOUT-USER.md)):
 
@@ -318,7 +320,7 @@ Use this when a **user-visible “model”** changes: how something is calculate
 
 ## Template A — PRD outline
 
-Copy into `docs/` or `specs/` and fill in.
+Copy into your product docs folder or `specs/` and fill in.
 
 ```markdown
 # PRD: <product or feature name>
