@@ -20,6 +20,7 @@
 | 0.5 | 2026-04-05 | PO | **Suppa** branding locked for customer-facing copy; linked [`suppa-brand-framework.md`](./suppa-brand-framework.md); hi-fi + prototype aligned ([`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md)). |
 | 0.6 | 2026-04-06 | PO | **PO-first queue** §14.1: ordered decisions before design freeze; maps to [`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md) §9. |
 | 0.7 | 2026-04-06 | PO | **Q1 Auth locked:** M1 **email + password** sign-up and sign-in (FR-A1). |
+| 0.8 | 2026-04-06 | PO | **Forgot-password** email link + reset page; **password min 8**; **Today greeting** mama + child first name (Q6). |
 
 ---
 
@@ -278,7 +279,7 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 
 | ID | Requirement |
 |----|-------------|
-| FR-A1 | User can **sign up** and **sign in** with **email and password** (hashing, validation, rate limits, and **forgot-password / reset** timing in technical spec—**self-service reset** may ship **M1.1** if M1 is scope-tight). |
+| FR-A1 | User can **sign up** and **sign in** with **email** and **password**. **Password rules (M1):** minimum **8 characters**; no other product-mandated complexity rules. **Forgot password:** user enters **email** on **Forgot password** → system sends **email** with **one-time link** → opening the link opens **Reset password** (new password, same 8-char minimum) → user can **sign in** with the new password. Token expiry, throttling, and secure hashing belong in the **technical spec**. |
 | FR-A2 | User can **sign out** and session ends. |
 | FR-A3 | User can create **one household** with **city** (required) and **country**. **If** the UI presents a **country** control (dropdown or required field), **country is required** for that flow; **if** M1 ships **city + free-text “City, country”** only, **country** is satisfied by that field and a separate control may be omitted—pick one pattern before build and keep analytics consistent. |
 | FR-A4 | User can add **optional** household members (name, role) **stored only**—no scoring in M1. |
@@ -297,7 +298,7 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 
 | ID | Requirement |
 |----|-------------|
-| FR-C1 | **Today** reflects **primary child** only. |
+| FR-C1 | **Today** reflects **primary child** only. **Greeting (M1):** time-appropriate **“Good [morning \| afternoon \| evening], mama — [ChildFirstName]”** using the **primary child’s first name** from the child profile (FR-B1)—no extra caregiver display-name field required. **Inclusive / locale backlog:** neutral alternatives (e.g. “parent,” “guardian,” locale-specific forms) and [`suppa-brand-framework.md`](./suppa-brand-framework.md) opt-in labels are **post-M1** unless PO adds a locale. |
 | FR-C2 | **Today** uses **mode** per §7.2 (`infant_0_5` vs macro snapshot bands). |
 | FR-C3 | For applicable bands, show **macro snapshot** (estimated intake vs §7.2 **reference targets**) with **estimate disclaimer** always visible on first expand or persistent subline—design spec. **Milk check-in** for 0–5 mo; **no** solid macro chart. |
 | FR-C4 | Show **0–3 macro gap hints** per §7.4 with disclaimer component. |
@@ -446,7 +447,8 @@ Define in implementation; **minimum event names** for funnel:
 
 ### Resolved (PO)
 
-- **Q1 — Auth (M1):** **Email + password** for **sign up** and **sign in**. **Not in scope for M1:** magic-link–only flows, OAuth/social login as the **only** path (either may be added later as **additional** options). Implementation details (hashing, rotation, lockout, **forgot-password** UX) live in the **technical spec**; minimum shippable bar is **working credential sign-up and sign-in**.
+- **Q1 — Auth (M1):** **Email + password** for **sign up** and **sign in**. **Not in scope for M1:** magic-link–only flows, OAuth/social login as the **only** path (either may be added later as **additional** options). **Forgot password:** email with one-time link → **Reset password** page (see FR-A1). **Password:** min **8 characters** only. Implementation details (hashing, lockout, token TTL) in **technical spec**.
+- **Q6 — Today greeting (M1):** **“Good [morning \| afternoon \| evening], mama — [ChildFirstName]”** using **primary child’s first name** (existing profile PII per FR-B1). No separate caregiver **display name** field required for greeting.
 
 ### Open
 
@@ -454,11 +456,10 @@ Define in implementation; **minimum event names** for funnel:
 3. **Seeded recipe count** and **licensing** owner.  
 4. **Country list** vs free-text only for M1.  
 5. **Bahasa Indonesia** copy wave: in M1 or M1.1?
-6. **Account display name:** If Today greets the caregiver by name, define source (e.g. **name on signup** vs **household member**) or use **generic greeting** only.  
-7. **Sodium/sugar lines:** Read-only defaults vs **caregiver-adjustable** band (§7.8)—decide before build.  
-8. **Share token:** **Rotate/revoke** link in M1 or defer to M1.1?  
-9. **Meal prep ↔ Log:** Auto-suggest “log this recipe” from plan—M1 or later?  
-10. **WHO/CDC chart transition** at 24 mo: exact UX (switch chart type vs single continuous view)—align with pediatric norms + engineering spike.
+6. **Sodium/sugar lines:** Read-only defaults vs **caregiver-adjustable** band (§7.8)—decide before build.  
+7. **Share token:** **Rotate/revoke** link in M1 or defer to M1.1?  
+8. **Meal prep ↔ Log:** Auto-suggest “log this recipe” from plan—M1 or later?  
+9. **WHO/CDC chart transition** at 24 mo: exact UX (switch chart type vs single continuous view)—align with pediatric norms + engineering spike.
 
 ### 14.1 PO-first resolution order (before design freeze)
 
@@ -468,7 +469,7 @@ Work **top to bottom**. Record each answer inline above (edit the numbered item)
 |------:|-------------------|-----------|-------------------------------------------------------------------------------------|
 | 1 | ~~**Q1 Auth**~~ **Resolved** | Email + password — FR-A1 | §5.2 Sign up / Log in |
 | 2 | **Q4 Country** | Locks FR-A3 + onboarding validation | §5.3 Household place |
-| 3 | **Q6 Display name** | Locks Today greeting (FR-C1) | §5.8 Today |
+| 3 | ~~**Q6 Greeting**~~ **Resolved** | Mama + child first name — FR-C1 | §5.8 Today |
 | 4 | **0–5 mo logging** (PRD journeys + AC-C1) | Locks milk mode vs meal log | §5.8 milk mode; §5.9 Log — *tie to Q1 if “feed” is separate flow* |
 | 5 | **Meal ideas when no logs** | Picks empty-state behavior for meal ideas | §5.8 empty state (issue §9.9) |
 | 6 | **Q7 Sodium/sugar** | Settings + Today awareness UX | §5.19 Settings; §5.8 awareness row (issue §9.13) |
@@ -521,3 +522,4 @@ Work **top to bottom**. Record each answer inline above (edit the numbered item)
 | 0.5 | **Suppa** branding; link [`suppa-brand-framework.md`](./suppa-brand-framework.md); hi-fi alignment note. |
 | 0.6 | §14.1 **PO-first resolution order** (table + sign-off gate); §14 locked-items note for **Suppa**. |
 | 0.7 | **Q1 Auth:** M1 **email + password**; FR-A1 updated; §14 split **Resolved** / **Open** (Q2–Q10). |
+| 0.8 | FR-A1 **forgot-password** email link + reset; **8-char** password min; FR-C1 **Today greeting**; Q6 resolved; open list renumbered. |

@@ -26,7 +26,17 @@
     }, ms || 2200);
   }
 
+  function initTodayGreeting() {
+    var el = document.getElementById("today-greeting");
+    if (!el) return;
+    var name = el.getAttribute("data-child-first") || "your child";
+    var h = new Date().getHours();
+    var part = h < 12 ? "morning" : h < 17 ? "afternoon" : "evening";
+    el.textContent = "Good " + part + ", mama — " + name;
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    initTodayGreeting();
     initDisclaimer(document);
 
     document.querySelectorAll("[data-chip-toggle]").forEach(function (btn) {

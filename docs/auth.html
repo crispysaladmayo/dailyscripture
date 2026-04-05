@@ -42,9 +42,13 @@
               type="password"
               autocomplete="new-password"
               required
+              minlength="8"
             />
+            <p class="body-muted" id="password-hint" style="margin-top: 0.35rem; font-size: 0.875rem">
+              At least 8 characters
+            </p>
             <p class="body-muted" id="forgot-password" style="margin-top: 0.35rem; font-size: 0.875rem" hidden>
-              <a href="#">Forgot password?</a>
+              <a href="forgot-password.html">Forgot password?</a>
             </p>
           </div>
           <p class="field__error" id="auth-inline-error" hidden>
@@ -65,16 +69,21 @@
         var switchEl = document.getElementById("switch-mode");
         var pass = document.getElementById("password");
         var forgot = document.getElementById("forgot-password");
+        var hint = document.getElementById("password-hint");
         if (mode === "login") {
           title.textContent = "Welcome back";
           document.title = "Welcome back — Suppa";
           pass.setAttribute("autocomplete", "current-password");
+          pass.removeAttribute("minlength");
           if (forgot) forgot.hidden = false;
+          if (hint) hint.hidden = true;
           switchEl.textContent = "Need an account? Sign up";
           switchEl.href = "auth.html?mode=signup";
         } else {
           document.title = "Create your account — Suppa";
+          pass.setAttribute("minlength", "8");
           if (forgot) forgot.hidden = true;
+          if (hint) hint.hidden = false;
           switchEl.textContent = "Already have an account? Log in";
           switchEl.href = "auth.html?mode=login";
         }

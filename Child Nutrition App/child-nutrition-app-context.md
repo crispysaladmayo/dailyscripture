@@ -22,6 +22,8 @@ The agent should complete this end-to-end unless Alvin says **spec-only** or **n
 
 **PO-first:** Before big design or prototype churn, work through open decisions in [`prd-milestone-1.md`](./prd-milestone-1.md) **§14.1** (ordered queue). Each resolution should flow **PRD → `design-m1-hifi-pages.md` → `m1-hifi-prototype/`** as needed.
 
+**Auth & Today (locked):** Password **min 8**; **forgot password** sends email with one-time link to **reset password** (see PRD FR-A1). **Today** greets **Good [morning|afternoon|evening], mama — [child first name]** (PRD FR-C1); neutral/locale variants backlog.
+
 ---
 
 ## Project brief

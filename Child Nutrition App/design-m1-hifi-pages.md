@@ -157,7 +157,7 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 **Layout**
 
 - **Title:** “Create your account” / “Welcome back”  
-- **Form fields (M1 — PO):** **Email** and **password** (both required). Optional muted helper under password for **minimum length** / rules (exact rule in technical spec). **Forgot password** on log-in mode: link or screen per tech spec (may be **M1.1** if reset is deferred).  
+- **Form fields (M1 — PO):** **Email** and **password** (both required). **Password:** minimum **8 characters** (inline validation + helper text). **Forgot password** (log-in only): link to **Forgot password** screen → user submits **email** → **confirmation state** (“Check your email”) → email contains **one-time link** → **Reset password** screen (new password + confirm, min 8) → return to **Log in**.  
 - **Primary:** Continue  
 - **Link:** Switch to log in / sign up  
 - **Trust line:** “We use your profile to personalize food ideas only.”
@@ -167,6 +167,8 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 **Errors:** Map **duplicate email / account exists** (and similar auth failures) to a **specific** inline message and next step—not a generic “Something went wrong.”
 
 **Accessibility:** Autocomplete attributes; error announced to SR.
+
+**Related screens (M1):** **Forgot password** (email field + submit) · **Reset password** (new password, confirm, both min 8) — same tokens/components as §5.2.
 
 ---
 
@@ -275,7 +277,7 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 
 **Layout (6–12 months, 1–2 years, 3–12 years — macro snapshot)**
 
-1. **Top bar:** Greeting **“Good afternoon, [Caregiver]”** when a **display name** exists in account/household settings; otherwise **“Good afternoon”** only (no placeholder name). Child name pill **“Maya · 3–5 years”** (tappable → Settings child section). **PO:** resolve display-name source per PRD §14 Q6.  
+1. **Top bar:** Greeting **“Good [morning \| afternoon \| evening], mama — [ChildFirstName]”** (time from device clock; **ChildFirstName** from primary child profile, FR-B1 / PRD FR-C1). **Inclusive note:** English M1 warm **“mama”**; neutral/locale variants are backlog. Child name pill **“Maya · 3–5 years”** (tappable → Settings child section)—may echo the same first name as in the greeting.  
 2. **Disclaimer strip** collapsible: one line + “Learn more” expands PRD disclaimer.  
 3. **Hero card — “Today for Maya”**  
    - **Energy row:** Label **Energy** + horizontal **progress bar** (estimated kcal / reference kcal) + text **“~520 / 1600 kcal”** (tilde prefix optional; design pick one).  
@@ -606,6 +608,9 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 | C12 | Public recipe footer | “General food information only—not medical advice.” |
 | C13 | Meal prep note warning | “We can’t check free-text notes for allergies—always verify before serving.” |
 | C14 | Nutrient focus (vitamin D) | “Many families discuss vitamin D with their pediatrician—ask what’s right for your baby.” |
+| C15 | Today greeting (template) | “Good [morning \| afternoon \| evening], mama — [ChildFirstName]” (see §5.8). |
+| C16 | Forgot-password confirmation | “If that email has a Suppa account, we sent a reset link.” (avoid account enumeration—exact copy with Architect). |
+| C17 | Reset password success | “Password updated. You can log in.” |
 
 *(Product name **Suppa** is locked for M1 marketing and in-app disclaimers; see [`suppa-brand-framework.md`](./suppa-brand-framework.md).)*
 
@@ -646,7 +651,7 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 
 ## 10. Handoff checklist
 
-- [ ] PO approves copy deck **C1–C14** and screen list (incl. §5.16–5.19).  
+- [ ] PO approves copy deck **C1–C17** and screen list (incl. §5.16–5.19, forgot/reset auth).  
 - [ ] Frontend: tokens as CSS variables / Tailwind theme.  
 - [ ] QA: cross-reference **acceptance criteria** in PRD §11 with **states** above.  
 - [ ] Optional: Figma file created from this spec (same section numbering).
@@ -677,3 +682,4 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 | 0.5 | 2026-04-05 | **Suppa** branding: §2.0 brand block; landing §5.1 wordmark + positioning; onboarding CTA; C1–C2; §5.16 footer; open issue 1 (app name) locked; prototype `styles.css` wordmark utilities. |
 | 0.6 | 2026-04-06 | §9 pointer to PRD §14.1 **PO-first** resolution order. |
 | 0.7 | 2026-04-06 | §5.2 + §9: **email + password** auth locked (PRD Q1). |
+| 0.8 | 2026-04-06 | Forgot-password + reset screens; **8-char** password; Today **mama + child** greeting (PRD Q6); C15–C17; handoff C1–C17. |
