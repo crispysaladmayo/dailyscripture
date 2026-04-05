@@ -20,6 +20,8 @@ When Alvin asks for a **design update** (UX/UI change, new screen, copy/layout t
 
 The agent should complete this end-to-end unless Alvin says **spec-only** or **no push**.
 
+**PO-first:** Before big design or prototype churn, work through open decisions in [`prd-milestone-1.md`](./prd-milestone-1.md) **§14.1** (ordered queue). Each resolution should flow **PRD → `design-m1-hifi-pages.md` → `m1-hifi-prototype/`** as needed.
+
 ---
 
 ## Project brief

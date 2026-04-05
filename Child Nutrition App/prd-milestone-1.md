@@ -18,6 +18,7 @@
 | 0.3 | 2026-04-05 | PO | **Macro-anchored Today:** age-band energy + macro targets (approximate), logging → estimated macros, gap-driven **meal ideas** from recipe macro data ([`child-nutrition-0-12-knowledge-base.md`](./child-nutrition-0-12-knowledge-base.md) §AMDR reference). |
 | 0.4 | 2026-04-05 | PO + CPO alignment | **M1 expansion:** nutrient-focus (vitamin D, iron, calcium pattern), sodium/added-sugar **awareness**, **trending** recipes, **cook time**, **weekly meal prep**, **recipe share** (URL / print / text), **growth chart** (WHO/CDC, user-entered measurements). See [`milestone-1-spec.md`](./milestone-1-spec.md). |
 | 0.5 | 2026-04-05 | PO | **Suppa** branding locked for customer-facing copy; linked [`suppa-brand-framework.md`](./suppa-brand-framework.md); hi-fi + prototype aligned ([`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md)). |
+| 0.6 | 2026-04-06 | PO | **PO-first queue** §14.1: ordered decisions before design freeze; maps to [`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md) §9. |
 
 ---
 
@@ -440,6 +441,8 @@ Define in implementation; **minimum event names** for funnel:
 
 ## 14. Open questions (PO / Alvin)
 
+**Already locked (do not reopen without CPO):** Customer-facing product name **Suppa** ([`suppa-brand-framework.md`](./suppa-brand-framework.md)); PRD v0.5.
+
 1. **Auth:** Email magic link vs OAuth vs password—**decision** before build.  
 2. **Log edit/delete:** Policy for correcting mistakes.  
 3. **Seeded recipe count** and **licensing** owner.  
@@ -450,6 +453,32 @@ Define in implementation; **minimum event names** for funnel:
 8. **Share token:** **Rotate/revoke** link in M1 or defer to M1.1?  
 9. **Meal prep ↔ Log:** Auto-suggest “log this recipe” from plan—M1 or later?  
 10. **WHO/CDC chart transition** at 24 mo: exact UX (switch chart type vs single continuous view)—align with pediatric norms + engineering spike.
+
+### 14.1 PO-first resolution order (before design freeze)
+
+Work **top to bottom**. Record each answer inline above (edit the numbered item) or in a dated one-line note under §15 Assumptions. Then update [`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md) §9 / §5 and the HTML prototype per the context file’s design workflow.
+
+| Order | PO question (§14) | Why first | Design spec touchpoint ([`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md)) |
+|------:|-------------------|-----------|-------------------------------------------------------------------------------------|
+| 1 | **Q1 Auth** | Blocks sign-up / log-in field set and FR-A1 | §5.2 Sign up / Log in |
+| 2 | **Q4 Country** | Locks FR-A3 + onboarding validation | §5.3 Household place |
+| 3 | **Q6 Display name** | Locks Today greeting (FR-C1) | §5.8 Today |
+| 4 | **0–5 mo logging** (PRD journeys + AC-C1) | Locks milk mode vs meal log | §5.8 milk mode; §5.9 Log — *tie to Q1 if “feed” is separate flow* |
+| 5 | **Meal ideas when no logs** | Picks empty-state behavior for meal ideas | §5.8 empty state (issue §9.9) |
+| 6 | **Q7 Sodium/sugar** | Settings + Today awareness UX | §5.19 Settings; §5.8 awareness row (issue §9.13) |
+| 7 | **Q8 Share token** | Scope for recipe detail + public page | §5.13 Share sheet; §5.16 (issue §9.12) |
+| 8 | **Q2 Log edit/delete** | Support + abuse boundary | §5.10 Log history; tech spec |
+| 9 | **Q10 WHO/CDC** | Growth chart UX | §5.18 Growth (issues §9.10–9.11) |
+| 10 | **Q3 Seeded recipes** | Content plan, not blocking first UI pass | Epic E / content pipeline |
+| 11 | **Q5 Bahasa** | Locale scope vs §15 assumption | §9.6; copy deck §7 |
+| 12 | **Q9 Meal prep → Log** | Nice-to-have vs M1 scope | §5.17 Meal prep |
+| — | **Fridge input (chips vs comma)** | Eng + UX tradeoff | §5.11 — resolve with Architect after Q1–Q4 |
+| — | **Gap threshold %** | Product tuning | §5.8 hints — default in tech spec with PO visibility |
+| — | **Age band → nutrition row mapping** | No silent logic | §5.4 + PRD §7.2 — Architect confirms table |
+| — | **Landing headline** | Marketing polish | §5.1 — after Suppa wordmark (issue §9.1) |
+| — | **Illustrations** | Asset plan | §5.1 empty states — issue §9.5 |
+
+**PO sign-off gate (before “design done”):** Approve copy **C1–C14** and screen list in [`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md) §10 handoff checklist.
 
 ---
 
@@ -483,3 +512,5 @@ Define in implementation; **minimum event names** for funnel:
 | 0.2 | AR/ECH integration: FR-A3 country clarity, UX band mapping note, §9.2 + NFR4, open question Q6, review artifact link. |
 | 0.3 | Macro-anchored nutrition model §7; FR-C3–C5, FR-D1/D3, FR-E2–E4; AC-C1–C4, AC-D2; analytics; summary §1. |
 | 0.4 | Nutrient focus §7.7; sodium/sugar awareness §7.8; cook time & trending §7.9; §8.5–8.6; journeys §9.1–9.3; Epics B–I; AC-C5–C6, AC-E4–E5, AC-G1–G2, AC-H1–H2, AC-I1–I2; analytics; NFR5; open Q7–10. |
+| 0.5 | **Suppa** branding; link [`suppa-brand-framework.md`](./suppa-brand-framework.md); hi-fi alignment note. |
+| 0.6 | §14.1 **PO-first resolution order** (table + sign-off gate); §14 locked-items note for **Suppa**. |

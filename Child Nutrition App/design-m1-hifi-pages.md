@@ -625,6 +625,8 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 
 ## 9. Open design issues (for PO / Architect)
 
+**PO-first order:** Resolve in the sequence in [`prd-milestone-1.md`](./prd-milestone-1.md) **§14.1** (maps each item below to PRD questions and screens).
+
 1. ~~**App name**~~ **Locked:** **Suppa** ([`suppa-brand-framework.md`](./suppa-brand-framework.md)). **Open:** final marketing headline variants on Landing (A/B or PO pick).  
 2. **Auth** pattern affects **sign-up screen** field set.  
 3. **0–5 mo logging:** dedicated “feed” log vs skip meal log entirely.  
@@ -673,3 +675,4 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 | 0.3 | 2026-04-05 | Macro-anchored Today (§5.8), portion helper on log (§5.9), fridge/recipe macro badges (§5.12–5.14), recipe detail macro line (§5.13), add-recipe optional macros (§5.15), components C7–C8, open issues 8–9. |
 | 0.4 | 2026-04-05 | **M1 expansion:** 5-tab nav + Prep; onboarding **sex**; Today **nutrient focus** + **sodium/sugar awareness**; **Trending** + **cook time** on lists; recipe **Share sheet** + §5.16 **public page**; §5.17 **meal prep**; §5.18 **Growth**; §5.19 Settings **mindful guides**; new components; C9–C14; open issues 10–14. |
 | 0.5 | 2026-04-05 | **Suppa** branding: §2.0 brand block; landing §5.1 wordmark + positioning; onboarding CTA; C1–C2; §5.16 footer; open issue 1 (app name) locked; prototype `styles.css` wordmark utilities. |
+| 0.6 | 2026-04-06 | §9 pointer to PRD §14.1 **PO-first** resolution order. |
