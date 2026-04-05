@@ -19,7 +19,7 @@
       <main>
         <nav class="list-group" aria-label="Settings sections">
           <a href="#"
-            >Household <span class="list-group__chev" aria-hidden="true">›</span><span class="caption" style="display: block; font-weight: 400">Jakarta, Indonesia</span></a
+            >Household <span class="list-group__chev" aria-hidden="true">›</span><span class="caption" style="display: block; font-weight: 400">Jakarta · Indonesia</span></a
           >
           <a href="#"
             >Child profile <span class="list-group__chev" aria-hidden="true">›</span><span class="caption" style="display: block; font-weight: 400">Maya · 3–5 · Egg</span></a
@@ -27,7 +27,26 @@
           <a href="#">Account <span class="list-group__chev" aria-hidden="true">›</span></a>
           <a href="#">About &amp; disclaimer <span class="list-group__chev" aria-hidden="true">›</span></a>
         </nav>
-        <button type="button" class="btn btn--destructive">Sign out</button>
+
+        <section class="card" aria-labelledby="mindful-heading" style="margin-top: 1.25rem">
+          <h2 id="mindful-heading" class="title" style="font-size: 1.05rem">Mindful eating guides</h2>
+          <p class="body-muted" style="font-size: 0.875rem; margin-top: 0.25rem">
+            Default lines for your child’s age. Adjust if your pediatrician suggests different targets—not medical advice.
+          </p>
+          <div class="field" style="margin-top: 1rem">
+            <label for="sodium-mg">Sodium guide (mg/day)</label>
+            <input id="sodium-mg" type="number" inputmode="numeric" value="1500" min="0" step="50" />
+          </div>
+          <div class="field">
+            <label for="sugar-g">Added sugar guide (g/day)</label>
+            <input id="sugar-g" type="number" inputmode="decimal" value="25" min="0" step="1" />
+          </div>
+          <button type="button" class="btn btn--ghost" id="mindful-reset" style="margin-top: 0.5rem">
+            Reset to defaults
+          </button>
+        </section>
+
+        <button type="button" class="btn btn--destructive" style="margin-top: 1.25rem">Sign out</button>
       </main>
     </div>
     <nav class="bottom-nav" aria-label="Main navigation">
@@ -48,6 +67,21 @@
         Recipes
       </a>
     </nav>
+    <script>
+      (function () {
+        var na = document.getElementById("sodium-mg");
+        var su = document.getElementById("sugar-g");
+        var defNa = "1500";
+        var defSu = "25";
+        var btn = document.getElementById("mindful-reset");
+        if (btn && na && su) {
+          btn.addEventListener("click", function () {
+            na.value = defNa;
+            su.value = defSu;
+          });
+        }
+      })();
+    </script>
     <script src="app.js"></script>
   </body>
 </html>

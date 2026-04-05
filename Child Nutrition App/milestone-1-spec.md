@@ -28,20 +28,20 @@
 1. **Account & household (minimal)**  
    - Sign up / sign in — **email + password** (M1 PO lock; see [`prd-milestone-1.md`](./prd-milestone-1.md) FR-A1).  
    - One household, one **primary child** profile for M1 scoring (optional other members may exist as **placeholders**; see below).  
-   - **City or locality (required):** Caregiver enters where the household shops/cooks (e.g. city + country or metro). **Use in M1:** persist field, show in settings, use for **copy variants / tagging / seeded recipe selection** where implemented; **no GPS**, no store locator.
+   - **Household location (required, M1 PO):** **Indonesia only**—**city or regency** from a **dropdown** (kota/kabupaten list; see [`prd-milestone-1.md`](./prd-milestone-1.md) FR-A3). **Use in M1:** persist, show in Settings, use for **place-aware** copy/tagging where implemented; **no GPS**, no store locator.
 
 2. **Child profile (required)**  
    - Name, age band (align bands with knowledge base: e.g. 0–6 mo, 6–12 mo, 1–2 y, 3–5 y, 6–8 y, 9–11 y, 12 y — exact UX enums TBD).  
    - **Sex assigned at birth** (or equivalent enum: female / male / prefer not to say) — **required for growth chart** when caregiver uses growth features; if “prefer not to say,” growth chart is **disabled** with explanatory copy ([`prd-milestone-1.md`](./prd-milestone-1.md)).  
    - Allergies (structured list, user-maintained).  
    - Preferences + does not like (one simple pattern for M1: tags **or** short text—pick one).  
-   - **Reference awareness targets:** default **sodium** and **added sugar** “mindful daily bands” from KB/PRD (editable only if PRD allows overrides); **not** individualized clinical targets.
+   - **Reference awareness targets:** default **sodium** and **added sugar** “mindful daily bands” from KB/PRD; caregiver **may adjust** in Settings + **reset to defaults** ([`prd-milestone-1.md`](./prd-milestone-1.md) FR-B5); **not** individualized clinical targets.
 
 3. **Today / dashboard**  
    - **Macro snapshot:** estimated **energy (kcal)** and **protein / carbohydrates / fat (g)** vs **reference defaults** by nutrition row ([`prd-milestone-1.md`](./prd-milestone-1.md) §7.2); **0–5 months** stays **milk-day** mode (no solid macro chart).  
    - **Nutrient focus (curated):** small module for **vitamin D + iron** (and optional **calcium pattern** per KB)—**education and pattern hints**, not full vitamin tracking from logs ([`child-nutrition-0-12-knowledge-base.md`](./child-nutrition-0-12-knowledge-base.md) §Nutrient focus goals).  
    - **Sodium / added sugar awareness (optional rollup):** when recipe or future log data supports it; otherwise **unknown** state—PRD §7.  
-   - **1–3 macro gap hints** (“light on…”) plus **Meal ideas for today** from **safe** recipes with **macro_emphasis** aligned to gaps ([`prd-milestone-1.md`](./prd-milestone-1.md) §7.4–§7.5). **Informational only**; not individualized medical advice.
+   - **1–3 macro gap hints** (“light on…”) when logs support them, plus **Meal ideas:** **gap-matched** when possible; **generic allergy-safe browse** + **Browse recipes** when there are **no logs** or no matches—**never** a dead-end module ([`prd-milestone-1.md`](./prd-milestone-1.md) FR-C5, §7.5). **0–5 months:** **milk mode** only (no solid macro chart); **feed check-in** path, not food-group meal log. **Informational only**; not individualized medical advice.
 
 4. **Meal log**  
    - Manual log: meal/snack + **food-group tags** (required) + **portion** (optional; drives macro estimates) + subject (primary child).  

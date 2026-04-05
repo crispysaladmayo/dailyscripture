@@ -24,18 +24,29 @@
 
       <section id="step-1" class="ob-step">
         <h1 class="title">Where do you shop and cook?</h1>
-        <p class="body-muted">Helps us suggest foods that fit your area.</p>
+        <p class="body-muted">We’re starting in Indonesia—pick your city or regency.</p>
+        <input type="hidden" id="country" name="country" value="ID" />
         <div class="field" style="margin-top: 1.25rem">
-          <label for="country">Country</label>
-          <select id="country" name="country" required>
-            <option value="">Select country</option>
-            <option value="ID" selected>Indonesia</option>
-            <option value="US">United States</option>
+          <label for="city">City or regency</label>
+          <select id="city" name="city" required>
+            <option value="">Select city or regency</option>
+            <option value="Jakarta" selected>Jakarta</option>
+            <option value="Surabaya">Surabaya</option>
+            <option value="Bandung">Bandung</option>
+            <option value="Bekasi">Bekasi</option>
+            <option value="Medan">Medan</option>
+            <option value="Depok">Depok</option>
+            <option value="Tangerang">Tangerang</option>
+            <option value="Palembang">Palembang</option>
+            <option value="Semarang">Semarang</option>
+            <option value="Makassar">Makassar</option>
+            <option value="Denpasar">Denpasar</option>
+            <option value="Malang">Malang</option>
+            <option value="Bogor">Bogor</option>
+            <option value="Yogyakarta">Yogyakarta</option>
+            <option value="Pekanbaru">Pekanbaru</option>
+            <option value="Surakarta">Surakarta (Solo)</option>
           </select>
-        </div>
-        <div class="field">
-          <label for="city">City / locality</label>
-          <input id="city" type="text" placeholder="e.g. Jakarta" required autocomplete="address-level2" />
         </div>
         <div class="btn-row">
           <button type="button" class="btn btn--primary" data-next>Continue</button>
@@ -199,8 +210,7 @@
           btn.addEventListener("click", function () {
             if (step === 1) {
               var city = document.getElementById("city");
-              var country = document.getElementById("country");
-              if (!city.value.trim() || !country.value) return;
+              if (!city || !city.value) return;
             }
             if (step === 3 && !noAllergy.checked && !anyChipSelected()) {
               alert("Select allergies or choose “No known allergies.”");

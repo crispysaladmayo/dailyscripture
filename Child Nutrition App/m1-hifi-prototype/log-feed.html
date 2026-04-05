@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Record a feed — Suppa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-frame">
+      <a class="btn btn--ghost" href="today-infant.html" style="margin: -0.5rem 0 1rem; align-self: flex-start">Back</a>
+      <h1 class="title">Record a feed</h1>
+      <p class="body-muted">For babies under 6 months—milk or formula only in M1 (no solid food groups).</p>
+
+      <main style="margin-top: 1.25rem">
+        <fieldset class="field" style="border: none; padding: 0; margin: 0">
+          <legend class="field" style="margin-bottom: 0.5rem; font-weight: 600">Today’s pattern</legend>
+          <label class="check-row" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem">
+            <input type="radio" name="feed" value="breast" checked />
+            Mostly breast milk
+          </label>
+          <label class="check-row" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem">
+            <input type="radio" name="feed" value="formula" />
+            Mostly formula
+          </label>
+          <label class="check-row" style="display: flex; align-items: center; gap: 0.5rem">
+            <input type="radio" name="feed" value="mixed" />
+            Mixed / combination
+          </label>
+        </fieldset>
+
+        <button type="button" class="btn btn--primary" style="margin-top: 1.5rem; width: 100%" id="save-feed">
+          Save
+        </button>
+      </main>
+    </div>
+    <script>
+      (function () {
+        document.getElementById("save-feed").addEventListener("click", function () {
+          window.location.href = "today-infant.html";
+        });
+      })();
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>

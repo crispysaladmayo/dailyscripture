@@ -24,6 +24,8 @@ The agent should complete this end-to-end unless Alvin says **spec-only** or **n
 
 **Auth & Today (locked):** Password **min 8**; **forgot password** sends email with one-time link to **reset password** (see PRD FR-A1). **Today** greets **Good [morning|afternoon|evening], mama — [child first name]** (PRD FR-C1); neutral/locale variants backlog.
 
+**Household geography (M1):** **Indonesia only**; **city/regency dropdown** (FR-A3). **0–5 months:** **milk mode**—**feed check-in** only, no solid **meal log**. **Meal ideas:** **generic safe browse** when there are no logs or no gap matches—always a path forward (FR-C5). **Sodium/sugar guides:** **defaults + user-adjustable** in Settings (FR-B5). **Shared recipe links:** see PRD **§14.2** for what **revoke/rotate** means—**M1 vs M1.1** still **open**.
+
 ---
 
 ## Project brief
@@ -67,7 +69,7 @@ V1 is a **coherent slice** that proves the core loop: **profile → log → see 
 1. **Account & household (minimal)**  
    - Sign up / sign in — **M1:** **email + password** ([`prd-milestone-1.md`](./prd-milestone-1.md) FR-A1 / §14 **Resolved**).  
    - One **household** with a named **child** (age or age band) and optional **other members** as simple profiles (name + role, e.g. “Adult”) for future nutrition targets.  
-   - **City or locality (required for V1):** Mom/caregiver enters where the household shops and cooks (e.g. city + country, or metro)—used to tune **food suggestions, ingredient names, and gap hints** to **geographic and cultural context** (not precise GPS in V1 unless we explicitly add it later).
+   - **City or regency (required for V1 / M1):** **Indonesia only** in M1—**dropdown** of kota/kabupaten (see PRD FR-A3)—used to tune **place-aware** suggestions and copy (not precise GPS).
 
 2. **Child profile (required for V1)**  
    - Basic child info (name, age band).  
@@ -79,7 +81,7 @@ V1 is a **coherent slice** that proves the core loop: **profile → log → see 
    - **Nutrient focus:** Curated **vitamin D + iron** (and related pattern hints per KB)—**not** full vitamin tracking from logs.  
    - **Sodium / added sugar awareness:** Reference **mindful daily bands** by age; show **unknown** when data is insufficient.  
    - **Gaps / hints:** 1–3 plain-language **macro** gaps (e.g. “light on protein”) with **no** medical claims.  
-   - **Meal ideas:** Child-safe recipes tagged to **close today’s largest gaps** when recipe macro metadata exists.
+   - **Meal ideas:** **Gap-matched** when logs and data support it; otherwise **generic allergy-safe browse** + **Browse recipes** so the module is **never** a dead end (PRD FR-C5).
 
 4. **Meal log (simple)**  
    - Log **meals or snacks** for the child (and optionally household members) with **manual entry**: meal name + rough portion or category; enough to drive the V1 nutrition model.  

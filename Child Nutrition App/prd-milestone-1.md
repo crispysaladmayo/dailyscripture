@@ -21,6 +21,7 @@
 | 0.6 | 2026-04-06 | PO | **PO-first queue** §14.1: ordered decisions before design freeze; maps to [`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md) §9. |
 | 0.7 | 2026-04-06 | PO | **Q1 Auth locked:** M1 **email + password** sign-up and sign-in (FR-A1). |
 | 0.8 | 2026-04-06 | PO | **Forgot-password** email link + reset page; **password min 8**; **Today greeting** mama + child first name (Q6). |
+| 0.9 | 2026-04-06 | PO | **Q4:** Indonesia-only, **city/regency dropdown**; **0–5 mo** milk mode; **meal ideas** generic browse when no logs; **sodium/sugar** adjustable in Settings; §14.2 **share token** explainer. |
 
 ---
 
@@ -162,13 +163,14 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 - **Eligibility:** Compare rolled-up estimates to §7.2 targets; identify **shortfall** per macro (kcal, protein, carbs, fat). Rank by **relative gap** (e.g. largest % below target first).  
 - **Cap:** Show **at most 3** hint cards.  
 - **Wording:** **“Today looks light on [protein / carbohydrates / overall energy / fat].”** Optional one-line food examples. Never **“deficient,” “too low clinically,”** or diagnosis.  
-- **No logs today:** Do **not** fabricate personalized macro gaps—use **empty state** + optional **stage-only education** (§9.2).
+- **No logs today:** Do **not** fabricate personalized macro gaps—use **empty macro state** + optional **stage-only education** (§9.2). **Meal ideas** still show **generic safe browse** per FR-C5 (not an “empty” module).
 
 ### 7.5 Meal ideas (gap-driven)
 
 - **Source:** **Seeded** recipes **must** have: per-serving **`kcal`, `protein_g`, `carb_g`, `fat_g`** (authoritative entry or batch from one nutrition dataset) and **`macro_emphasis`** ∈ { `protein`, `carbs`, `fat`, `balanced` } (≥1). **Seeded** recipes **should** include **`total_minutes`** (total cook time), optional **`active_minutes`**, optional **`sodium_mg_per_serving`**, **`added_sugar_g_per_serving`**, and **`trending`** (boolean—editorial).  
 - **User recipes:** **Optional** same fields; if missing, recipe **excluded** from macro-matched meal ideas (may still appear in fridge/browse).  
 - **Matching:** For each **top macro gap** (up to **2** gaps used for ideas), select up to **3** recipes total (deduped) that: (1) pass **allergy hard filter**, (2) **`macro_emphasis`** matches the gap macro **or** `balanced` when gap is energy, (3) **soft** deprioritize dislikes.  
+- **Fallback (PO):** If **no logs today** or **no qualifying gap-matched recipes**, show **generic allergy-safe** ideas (same module—**never** blank without a **Browse recipes** / **Add recipe** path). **0–5 mo milk mode:** ideas are **browse-only** (not gap-driven).  
 - **Placement:** **Today** shows a **Meal ideas for today** module linking to recipe detail; **Fridge results** may **boost** rank when a recipe both matches fridge **and** addresses a **current-day gap** (optional M1 enhancement—if not built, meal ideas remain Today-only).
 
 ### 7.6 Optional secondary education (not counted in 3 gap hints)
@@ -185,7 +187,7 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 ### 7.8 Sodium and added sugar (awareness)
 
 - **Reference defaults:** Product loads **age-band default daily awareness lines** for **sodium (mg/day)** and **added sugar (g/day or qualitative under 2)** from KB + technical spec (versioned tables). **Added sugar (2+):** derive illustrative **g/day cap** as **~10% × (that child’s §7.2 reference kcal) ÷ 4** (DGA theme)—e.g. **1000 kcal** → ~**25 g**, **1600 kcal** → ~**40 g**. **Under 2:** qualitative only unless locale dictates otherwise.  
-- **Profile:** Caregiver sees **child’s current reference lines** in Settings with explanation; **optional M1:** allow **±20% user adjustment** of displayed line **only** with clear “not medical advice” friction—**or** read-only defaults (**open**—pick one before build).  
+- **Profile (PO):** Caregiver sees **default** lines in Settings and can **edit** displayed **sodium (mg/day)** and **added sugar** (g/day or qualitative **under 2**) within product rules; **reset to defaults** anytime. Friction copy: **not medical advice** / general guide.  
 - **Rollup (partial):** If **logged meals** link to **recipes with** `sodium_mg_per_serving` / `added_sugar_g_per_serving` **or** future portion mapping, show **rough day tally** vs line; otherwise show **“Not enough recipe detail to estimate today”** for that nutrient. **Never** imply precision from food-group-only logs.  
 - **Recipes:** Fridge/Today surfaces may show **per-recipe** sodium/sugar when fields exist.
 
@@ -281,7 +283,7 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 |----|-------------|
 | FR-A1 | User can **sign up** and **sign in** with **email** and **password**. **Password rules (M1):** minimum **8 characters**; no other product-mandated complexity rules. **Forgot password:** user enters **email** on **Forgot password** → system sends **email** with **one-time link** → opening the link opens **Reset password** (new password, same 8-char minimum) → user can **sign in** with the new password. Token expiry, throttling, and secure hashing belong in the **technical spec**. |
 | FR-A2 | User can **sign out** and session ends. |
-| FR-A3 | User can create **one household** with **city** (required) and **country**. **If** the UI presents a **country** control (dropdown or required field), **country is required** for that flow; **if** M1 ships **city + free-text “City, country”** only, **country** is satisfied by that field and a separate control may be omitted—pick one pattern before build and keep analytics consistent. |
+| FR-A3 | **M1 geography (PO):** Household is **Indonesia only** (`country` = **ID** fixed in product logic). User selects **city or regency** from a **single required dropdown** (kota/kabupaten-level list—**curated** in CMS/tech spec, expandable over time). **No** separate country picker in M1 UI; **no** free-text city in M1 (reduces bad geodata). Multi-country onboarding is **post-M1**. |
 | FR-A4 | User can add **optional** household members (name, role) **stored only**—no scoring in M1. |
 
 ### Epic B — Child profile
@@ -292,17 +294,17 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 | FR-B2 | User can set **allergies** via §8.1 + optional other text. |
 | FR-B3 | User can enter **likes** and **does not like** as optional text. |
 | FR-B4 | User can set child **sex** as **female**, **male**, or **prefer not to say** (required field with third option). **Growth chart** (Epic I) is **available only** when sex is **female** or **male** (standard reference charts). |
-| FR-B5 | System applies **default sodium and added-sugar awareness lines** per age band (§7.8); user can **view** them in Settings; **optional override** per §7.8 open decision. |
+| FR-B5 | System applies **default sodium and added-sugar awareness lines** per age band (§7.8); user can **view** and **adjust** them in **Settings** (numeric or qualitative per age rules—design spec). **Reset to defaults** control. Displayed values drive **Today** awareness copy when rollup exists. Helper: general guidelines, not a medical plan. |
 
 ### Epic C — Today
 
 | ID | Requirement |
 |----|-------------|
 | FR-C1 | **Today** reflects **primary child** only. **Greeting (M1):** time-appropriate **“Good [morning \| afternoon \| evening], mama — [ChildFirstName]”** using the **primary child’s first name** from the child profile (FR-B1)—no extra caregiver display-name field required. **Inclusive / locale backlog:** neutral alternatives (e.g. “parent,” “guardian,” locale-specific forms) and [`suppa-brand-framework.md`](./suppa-brand-framework.md) opt-in labels are **post-M1** unless PO adds a locale. |
-| FR-C2 | **Today** uses **mode** per §7.2 (`infant_0_5` vs macro snapshot bands). |
-| FR-C3 | For applicable bands, show **macro snapshot** (estimated intake vs §7.2 **reference targets**) with **estimate disclaimer** always visible on first expand or persistent subline—design spec. **Milk check-in** for 0–5 mo; **no** solid macro chart. |
+| FR-C2 | **Today** uses **mode** per §7.2 (`infant_0_5` vs macro snapshot bands). **0–5 months = milk mode only (PO):** no solid-food macro snapshot, no macro gap hints, no **food-group meal log** (use **feed/milk check-in** path only—FR-D1). |
+| FR-C3 | For **non-infant_0_5** bands, show **macro snapshot** (estimated intake vs §7.2 **reference targets**) with **estimate disclaimer** always visible on first expand or persistent subline—design spec. **0–5 mo:** **milk/feed check-in** card + optional infant nutrient education only—**no** solid macro chart. |
 | FR-C4 | Show **0–3 macro gap hints** per §7.4 with disclaimer component. |
-| FR-C5 | Show **Meal ideas for today** per §7.5 when ≥1 eligible recipe exists; **empty state** when none (explain: log more, or add recipe macros). |
+| FR-C5 | **Meal ideas** module: **Gap-matched** recipes per §7.5 when logs + data support it. **When there are no logs today** OR **no gap-matched recipes**, show **generic allergy-safe browse** (e.g. trending or curated safe list)—**≥1 cards** whenever any safe seeded recipe exists, plus **Browse recipes** CTA. **Never** leave the module **empty** without a **forward path** (browse / add recipe). If catalog is truly empty (edge), show **C8**-style explanation + **Browse recipes** + **Add recipe** links. |
 | FR-C6 | Show **Nutrient focus** module per §7.7 for applicable age bands; **omit or simplify** for **infant_0_5** per KB. |
 | FR-C7 | Show **sodium / added sugar awareness** per §7.8: either **rollup** when data supports it or **explicit unknown** state—**no** false precision. |
 
@@ -310,7 +312,7 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 
 | ID | Requirement |
 |----|-------------|
-| FR-D1 | User can add **meal or snack** for primary child: label + **≥1 food group** tag + **optional portion** (small/medium/large). **At least one** tag must **not** be `other` alone (`other` may be selected with real groups). Portion affects **macro estimates** (default **medium** if unspecified—document in tech spec). |
+| FR-D1 | **6 mo+ (macro bands):** User can add **meal or snack**: label + **≥1 food group** tag + **optional portion** (small/medium/large). **At least one** tag must **not** be `other` alone (`other` may be selected with real groups). Portion affects **macro estimates** (default **medium** if unspecified—document in tech spec). **0–5 months (PO — milk mode only):** **No** food-group meal log; user uses **feed/milk check-in** (e.g. once-per-day **breast milk / formula / mixed** acknowledgment or simple feed log—design + tech spec) **only**. |
 | FR-D2 | User can view **last 7 days** of logs (list). |
 | FR-D3 | Logs **drive** Today **macro rollup** for that day. |
 
@@ -329,7 +331,7 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 
 | ID | Requirement |
 |----|-------------|
-| FR-F1 | User can edit **household city/country**, child profile (**including sex**, FR-B4), **awareness lines** (view; edit if override allowed), **sign out**. |
+| FR-F1 | User can edit **household** (**city/regency** from same dropdown pattern as onboarding; **country** remains Indonesia in M1), child profile (**including sex**, FR-B4), **sodium/sugar awareness lines** (view + **adjust** + **reset to defaults**, FR-B5), **sign out**. |
 
 ### Epic G — Weekly meal prep
 
@@ -373,7 +375,8 @@ Caregiver tags each log line with **one or more** of: `vegetables` · `fruits` �
 - **AC-C1:** Given age band **0–5 months**, When user opens **Today**, Then UI **does not** show **solid macro chart** or personalized macro gaps.  
 - **AC-C2:** Given age band **1–2 years** (or any macro row) and logs that yield **protein estimate** **below** reference target by policy threshold, When Today loads, Then **≥1** macro hint references **protein** in plain language **or** meal ideas include **protein**-emphasis recipes when catalog exists.  
 - **AC-C3:** Given **no logs** today, When Today loads, Then **no** fabricated macro gap numbers; empty state per §9.2.  
-- **AC-C4:** Given eligible seeded recipes exist for a gap, When Today loads, Then **Meal ideas** shows **≥1** card **or** explicit empty state with reason.  
+- **AC-C4:** Given **no logs today** (or **no gap-matched recipes**) and **≥1** allergy-safe catalog recipe exists, When Today loads, Then **Meal ideas** shows **≥1** **generic browse** card and **Browse recipes** (or equivalent) CTA—**not** a dead-end empty module.  
+- **AC-C4b:** Given eligible gap-matched recipes exist, When Today loads, Then **Meal ideas** may show **gap-badged** cards per §7.5.  
 - **AC-C5:** Given age band **6–12 months** or older macro row, When Today loads, Then **Nutrient focus** shows **≥1** education card (vitamin D and/or iron pattern per §7.7) **or** explicit empty/disabled state per stage.  
 - **AC-C6:** Given **no** recipe sodium/sugar data for the day, When Today loads, Then sodium/sugar line shows **unknown / not enough data**—**not** a numeric rollup implied from food groups alone.
 
@@ -449,17 +452,27 @@ Define in implementation; **minimum event names** for funnel:
 
 - **Q1 — Auth (M1):** **Email + password** for **sign up** and **sign in**. **Not in scope for M1:** magic-link–only flows, OAuth/social login as the **only** path (either may be added later as **additional** options). **Forgot password:** email with one-time link → **Reset password** page (see FR-A1). **Password:** min **8 characters** only. Implementation details (hashing, lockout, token TTL) in **technical spec**.
 - **Q6 — Today greeting (M1):** **“Good [morning \| afternoon \| evening], mama — [ChildFirstName]”** using **primary child’s first name** (existing profile PII per FR-B1). No separate caregiver **display name** field required for greeting.
+- **Q4 — Household geography (M1):** **Indonesia only**; **city/regency** via **required dropdown** (kota/kabupaten-level list—maintain in data/tech spec). **Country** fixed **ID**; no free-text city in M1.
+- **0–5 months — Milk mode (PO):** **No** solid macro chart, **no** macro gap hints, **no** food-group **meal log**; **feed/milk check-in** only + optional generic **recipe browse** for education (not gap-driven).
+- **Meal ideas — no logs (PO):** **Generic allergy-safe browse** + **Browse recipes** (and **Add recipe** if needed)—module **never** empty without a **forward path** when catalog has recipes.
+- **Q7 — Sodium/sugar (M1):** **Default** lines per §7.8; caregiver **adjusts** values in **Settings** + **reset to defaults**.
 
 ### Open
 
 2. **Log edit/delete:** Policy for correcting mistakes.  
 3. **Seeded recipe count** and **licensing** owner.  
-4. **Country list** vs free-text only for M1.  
-5. **Bahasa Indonesia** copy wave: in M1 or M1.1?
-6. **Sodium/sugar lines:** Read-only defaults vs **caregiver-adjustable** band (§7.8)—decide before build.  
-7. **Share token:** **Rotate/revoke** link in M1 or defer to M1.1?  
-8. **Meal prep ↔ Log:** Auto-suggest “log this recipe” from plan—M1 or later?  
-9. **WHO/CDC chart transition** at 24 mo: exact UX (switch chart type vs single continuous view)—align with pediatric norms + engineering spike.
+4. **Bahasa Indonesia** copy wave: in M1 or M1.1?
+5. **Share token / link revocation:** **Rotate or revoke** shared recipe links in **M1** vs **defer** to M1.1—see **§14.2** for what this means, then decide.  
+6. **Meal prep ↔ Log:** Auto-suggest “log this recipe” from plan—M1 or later?  
+7. **WHO/CDC chart transition** at 24 mo: exact UX (switch chart type vs single continuous view)—align with pediatric norms + engineering spike.
+
+### 14.2 What “share token / rotate / revoke” means (for PO)
+
+When someone taps **Share → copy link**, the app generates a **URL** that opens the **public recipe page** (no login). To avoid guessable links, that URL usually contains a **secret token** (a long random id), not just `/recipes/123`.
+
+- **Revoke** (or **rotate**): the caregiver can **invalidate** the old link so **whoever has the old URL can no longer see the recipe** (or gets an expired message). A **new** share action can mint a **new** token.  
+- **Why it matters:** If a link was pasted in a chat you regret, or a caregiver wants to “unpublish” a family recipe from the web, revocation is the product control.  
+- **M1 tradeoff:** Building **revoke/rotate UI** + server logic is real work. **Deferring to M1.1** means links may stay valid until you add that feature (you can still use unguessable URLs—see NFR5). **PO decision (still open):** ship **revoke** in M1, or **M1.1**?
 
 ### 14.1 PO-first resolution order (before design freeze)
 
@@ -468,24 +481,24 @@ Work **top to bottom**. Record each answer inline above (edit the numbered item)
 | Order | PO question (§14) | Why first | Design spec touchpoint ([`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md)) |
 |------:|-------------------|-----------|-------------------------------------------------------------------------------------|
 | 1 | ~~**Q1 Auth**~~ **Resolved** | Email + password — FR-A1 | §5.2 Sign up / Log in |
-| 2 | **Q4 Country** | Locks FR-A3 + onboarding validation | §5.3 Household place |
+| 2 | ~~**Q4 Country**~~ **Resolved** | Indonesia + city dropdown — FR-A3 | §5.3 Household place |
 | 3 | ~~**Q6 Greeting**~~ **Resolved** | Mama + child first name — FR-C1 | §5.8 Today |
-| 4 | **0–5 mo logging** (PRD journeys + AC-C1) | Locks milk mode vs meal log | §5.8 milk mode; §5.9 Log — *tie to Q1 if “feed” is separate flow* |
-| 5 | **Meal ideas when no logs** | Picks empty-state behavior for meal ideas | §5.8 empty state (issue §9.9) |
-| 6 | **Q7 Sodium/sugar** | Settings + Today awareness UX | §5.19 Settings; §5.8 awareness row (issue §9.13) |
-| 7 | **Q8 Share token** | Scope for recipe detail + public page | §5.13 Share sheet; §5.16 (issue §9.12) |
+| 4 | ~~**0–5 mo**~~ **Resolved** | Milk mode only — FR-C2/C3/D1 | §5.8 milk; §5.9 / feed log |
+| 5 | ~~**Meal ideas / no logs**~~ **Resolved** | Generic browse + CTA — FR-C5 | §5.8 |
+| 6 | ~~**Q7 Sodium/sugar**~~ **Resolved** | Defaults + Settings adjust — FR-B5 | §5.19 |
+| 7 | **Q5 Share revoke** (was “token”) | §14.2 explainer; M1 vs M1.1 | §5.13 Share sheet; §5.16 |
 | 8 | **Q2 Log edit/delete** | Support + abuse boundary | §5.10 Log history; tech spec |
-| 9 | **Q10 WHO/CDC** | Growth chart UX | §5.18 Growth (issues §9.10–9.11) |
+| 9 | **Open #7 WHO/CDC** | Growth chart UX | §5.18 Growth (issues §9.10–9.11) |
 | 10 | **Q3 Seeded recipes** | Content plan, not blocking first UI pass | Epic E / content pipeline |
-| 11 | **Q5 Bahasa** | Locale scope vs §15 assumption | §9.6; copy deck §7 |
-| 12 | **Q9 Meal prep → Log** | Nice-to-have vs M1 scope | §5.17 Meal prep |
+| 11 | **Open #4 Bahasa** | Locale scope vs §15 assumption | §9.6; copy deck §7 |
+| 12 | **Open #6 Meal prep → Log** | Nice-to-have vs M1 scope | §5.17 Meal prep |
 | — | **Fridge input (chips vs comma)** | Eng + UX tradeoff | §5.11 — resolve with Architect after Q1–Q4 |
 | — | **Gap threshold %** | Product tuning | §5.8 hints — default in tech spec with PO visibility |
 | — | **Age band → nutrition row mapping** | No silent logic | §5.4 + PRD §7.2 — Architect confirms table |
 | — | **Landing headline** | Marketing polish | §5.1 — after Suppa wordmark (issue §9.1) |
 | — | **Illustrations** | Asset plan | §5.1 empty states — issue §9.5 |
 
-**PO sign-off gate (before “design done”):** Approve copy **C1–C14** and screen list in [`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md) §10 handoff checklist.
+**PO sign-off gate (before “design done”):** Approve copy **C1–C17** (+ **C18–C19** when added) and screen list in [`design-m1-hifi-pages.md`](./design-m1-hifi-pages.md) §10 handoff checklist.
 
 ---
 
@@ -493,7 +506,8 @@ Work **top to bottom**. Record each answer inline above (edit the numbered item)
 
 1. **Single locale** (English) for M1 unless Alvin decides otherwise.  
 2. **One child** per household is dominant; multi-child is **post-M1**.  
-3. **Research KB** will receive **Indonesia** supplement before marketing ID heavily.
+3. **Research KB** will receive **Indonesia** supplement before marketing ID heavily.  
+4. **M1 household location** is **Indonesia-only** (onboarding + Settings); multi-country expansion is **post-M1** (does not block **U.S.-style reference nutrition** defaults in §7.2 until localized).
 
 ---
 
@@ -523,3 +537,4 @@ Work **top to bottom**. Record each answer inline above (edit the numbered item)
 | 0.6 | §14.1 **PO-first resolution order** (table + sign-off gate); §14 locked-items note for **Suppa**. |
 | 0.7 | **Q1 Auth:** M1 **email + password**; FR-A1 updated; §14 split **Resolved** / **Open** (Q2–Q10). |
 | 0.8 | FR-A1 **forgot-password** email link + reset; **8-char** password min; FR-C1 **Today greeting**; Q6 resolved; open list renumbered. |
+| 0.9 | FR-A3 Indonesia **city dropdown**; **milk mode** 0–5 mo; FR-C5 **generic meal ideas**; FR-B5 **adjustable** lines; §7.5/§7.8; §14.2 **share token** explainer; AC-C4/C4b; §15 assumption 4. |

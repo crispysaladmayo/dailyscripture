@@ -174,21 +174,21 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 
 ### 5.3 Onboarding — Step 1: Household place
 
-**Purpose:** FR-A3; PRD geography.
+**Purpose:** FR-A3; PRD geography (**M1 — PO:** **Indonesia only**).
 
 **Layout**
 
 1. **Title:** “Where do you shop and cook?”  
-2. **Subtitle:** Helps us suggest foods that fit your area.  
-3. **Country** (dropdown recommended; PRD open—if only text, single field “City, country”).  
-4. **City / locality** `TextField` required, placeholder *e.g. Jakarta* or *Brooklyn, NY*.  
+2. **Subtitle:** **“We’re starting in Indonesia—pick your city or regency.”** (or shorter: helps tune food ideas for your area.)  
+3. **City or regency** — **single required `Select`** (kota/kabupaten-level list; curated data—expand over time). **No** free-text city in M1.  
+4. **Country:** **not shown** as a control; stored as **`ID`** (Indonesia) in product logic.  
 5. **Optional** expandable: “Add another caregiver later” — **hidden for M1** (defer).  
 6. **Primary:** Continue  
 7. **Secondary:** Back (disabled on step 1).
 
-**Components:** `Select`, `TextField`, stepper.
+**Components:** `Select`, stepper.
 
-**Validation:** City non-empty. **Country** is **required** whenever a **separate country control** is shown (aligned with PRD FR-A3). If M1 uses **only** a single “City, country” text field, treat valid non-empty as satisfying both and **do not** show a redundant dropdown without PO sign-off.
+**Validation:** User must pick **one** list row; block Continue if empty.
 
 ---
 
@@ -292,29 +292,31 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
    - **0–5 mo milk mode:** Replace macro block with **short nutrient strip** only (vitamin D edu + milk check-in)—no iron score from solids.  
 5. **Macro gap hints** (max 3 cards, PRD §7.4):  
    - `info-soft` background; title **“Today looks light on protein.”** (or carbs / fat / overall energy); body = short food examples **or** in-app link **See meal ideas** (anchor to **Meal ideas for today** on same screen).  
-6. **Meal ideas for today** (FR-C5):  
+6. **Meal ideas for today** (FR-C5 — **PO:** never a dead end):  
    - **Overline:** “Meal ideas for today”  
-   - **Horizontal scroll** or vertical **2–3 cards**: thumbnail, title, badge **`Helps with protein`** (or matching gap), **Safe for Maya** when applicable.  
-   - **Empty:** “No ideas match yet—try logging a meal or add macros to your recipes in Settings.” + secondary **Browse recipes**  
+   - **When gap-matched ideas exist:** **Horizontal scroll** or vertical **2–3 cards** with **`Helps with protein`** (or matching gap) + **Safe for [child]** when applicable.  
+   - **When no logs today or no gap matches:** **Generic browse** — same layout, cards from **allergy-safe** catalog (no gap badge, or neutral **“Safe for [child]”** only); **subline C18**; **always** include **Browse recipes** (full safe list) and, if useful, **Add recipe**. **Never** an empty module without a forward action if **≥1** safe recipe exists.  
+   - **True catalog empty (edge):** **C8** + **Browse recipes** + **Add recipe**.  
    - **Tap** → Recipe detail.  
 7. **Primary CTA** sticky bottom above tab bar: **Log a meal**  
 8. **Secondary row:** **Cook from fridge** (ghost) · **Meal prep** (ghost, links to `/meal-prep`).
 
-**Layout (0–5 months — milk mode)**
+**Layout (0–5 months — milk mode) — PO: milk only**
 
-- **No** energy/macro chart for solids. **Single card**: “Mostly breast milk or formula today?” **Toggle or check** once per day (PRD).  
+- **No** energy/macro chart for solids. **No** food-group **meal log** — **feed/milk check-in** only (see §5.9).  
+- **Single card:** “Mostly breast milk or formula today?” **Toggle or check** once per day.  
 - **Optional** small edu card: “Vitamin D is often discussed for infants—ask your pediatrician.” **No dosing.**  
-- **No** macro gap hints or meal-ideas module tied to solids.  
-- CTA = **Log a meal** or **Record a feed** per PO.
+- **No** macro gap hints. **Meal ideas:** **Generic allergy-safe browse** only (not gap-driven)—same **never empty** rule as §5.8.6.  
+- **Primary CTA:** **Record a feed** (or **Log today’s milk**) — **not** “Log a meal” for solids.
 
-**Empty state (no logs today, macro bands)**
+**Empty state (no logs today, macro bands — 6 mo+)**
 
 - Illustration placeholder.  
 - **Title:** “Nothing logged yet today”  
 - **Body:** “Add a meal to see how the day is shaping up.”  
 - **No** fake macro progress at 0—show **empty bars** or **dashed placeholders** with copy “Log to see estimates.”  
 - **Primary:** Log a meal  
-- **Meal ideas:** Hide gap-matched ideas **or** show **generic browse** only (PO pick one; default **hide** personalized row).
+- **Meal ideas:** **Always** show **generic safe browse** + **Browse recipes** (**PO**—never dead end).
 
 **Loading:** Skeleton for macro bars + nutrient strip + 2 hint lines + 1 recipe card shimmer.
 
@@ -337,9 +339,27 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 7. **Primary:** Save  
 8. **Success:** Toast “Saved” + navigate back to **Today** (preferred) or Log list.
 
-**Validation:** PRD AC-D1 / AC-D1b — block save with inline error “Pick at least one food group” and **block `other` alone**. Exception path for 0–5 mo if only milk logging—PO confirms single path.
+**Validation:** PRD AC-D1 / AC-D1b — block save with inline error “Pick at least one food group” and **block `other` alone**. **0–5 months:** **do not use** this screen for solids—route to **Record a feed** / milk check-in (§5.9b).
 
 **Errors / offline:** On **network failure** or **5xx** after Save, show **error toast** (use destructive text color, not alarm red fill) with **Retry**; **preserve** form field values until success or explicit dismiss.
+
+---
+
+### 5.9b Log — feed / milk check-in (0–5 months)
+
+**Purpose:** FR-D1 milk mode; PRD **infant_0_5**.
+
+**Layout**
+
+1. **Nav:** Back  
+2. **Title:** “Record a feed” (or “Today’s milk”)  
+3. **One-tap or simple pattern:** e.g. **Breast milk** · **Formula** · **Mixed** (or daily **“Logged for today”** check—tech spec). **No** food-group chips.  
+4. **Primary:** Save  
+5. **Success:** Return to **Today** (milk mode).
+
+**Accessibility:** Same focus/error patterns as §5.9.
+
+**Errors / offline:** Same pattern as §5.9 (toast + Retry; preserve fields).
 
 ---
 
@@ -546,9 +566,9 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 
 **Layout (grouped list)**
 
-1. **Household** → City, country  
+1. **Household** → **City/regency** (`Select`, same list pattern as onboarding); **Indonesia** implied—no country picker M1.  
 2. **Child profile** → Name, age band, **sex**, allergies, likes/dislikes  
-3. **Mindful eating guides** (read-only unless PO allows edit) → shows **reference sodium (mg/day)** and **added sugar** line or qualitative **under 2** text per PRD §7.8; helper **“From general guidelines—not for your child’s medical plan.”**  
+3. **Mindful eating guides** (**PO:** **editable**) → **default** sodium (**mg/day**) and added sugar (**g/day** or qualitative **under 2**) per PRD §7.8; **numeric fields or pickers** + **Reset to defaults**; helper **“From general guidelines—not for your child’s medical plan.”**  
 4. **Growth** → navigates to §5.18  
 5. **Account** → Sign out  
 6. **About** → Disclaimer full text
@@ -601,7 +621,8 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 | C5 | Validation food group | “Choose at least one food group for this meal.” |
 | C6 | Empty fridge results | “No matches yet. Try fewer ingredients or update your child’s profile.” |
 | C7 | Macro estimate disclaimer | “Numbers are estimates from your quick logs—not exact intake.” |
-| C8 | Empty meal ideas | “No ideas match yet—try logging a meal or add per-serving nutrition to your recipes.” |
+| C8 | Meal ideas (catalog edge) | “We don’t have matching ideas yet—browse all safe recipes or add your own.” |
+| C18 | Meal ideas (generic browse / no logs) | “You haven’t logged today—here are safe recipes to explore. Log a meal for ideas matched to your day.” |
 | C9 | Growth (persistent) | “This chart uses standard growth references. It’s not a medical test. Your pediatrician is the best judge of your child’s growth.” |
 | C10 | Sodium/sugar unknown | “We don’t have enough detail to estimate today—link meals to recipes with sodium/sugar, or add those fields to your recipes.” |
 | C11 | Share sheet helper | “Only the recipe is shared—not your child’s profile or allergies.” |
@@ -611,6 +632,7 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 | C15 | Today greeting (template) | “Good [morning \| afternoon \| evening], mama — [ChildFirstName]” (see §5.8). |
 | C16 | Forgot-password confirmation | “If that email has a Suppa account, we sent a reset link.” (avoid account enumeration—exact copy with Architect). |
 | C17 | Reset password success | “Password updated. You can log in.” |
+| C19 | Mindful lines reset | “Restored default guide lines for your child’s age.” |
 
 *(Product name **Suppa** is locked for M1 marketing and in-app disclaimers; see [`suppa-brand-framework.md`](./suppa-brand-framework.md).)*
 
@@ -634,24 +656,24 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 
 1. ~~**App name**~~ **Locked:** **Suppa** ([`suppa-brand-framework.md`](./suppa-brand-framework.md)). **Open:** final marketing headline variants on Landing (A/B or PO pick).  
 2. ~~**Auth**~~ **Locked (M1):** **Email + password** — see PRD FR-A1 / §14 **Resolved**.  
-3. **0–5 mo logging:** dedicated “feed” log vs skip meal log entirely.  
+3. ~~**0–5 mo logging**~~ **Locked:** **Milk / feed check-in only** — §5.8 milk mode; §5.9b.  
 4. **Fridge input:** comma-separated vs chip field—engineering + design tradeoff.  
 5. **Illustrations:** commission vs abstract shapes for M1.  
 6. **Bahasa Indonesia:** mirror layout for longer strings (headline wrapping, button length).
 7. **Nutrition mapping:** Confirm eng mapping from **each** onboarding age band (§5.4) to PRD §7.2 **nutrition row** for macro targets—no silent sub-band logic.  
 8. **Gap threshold:** Define % below reference that triggers a **macro hint** (technical spec).  
-9. **Meal ideas empty vs generic browse** when no logs (§5.8)—PO picks default.  
+9. ~~**Meal ideas / no logs**~~ **Locked:** **Generic browse** + CTA — §5.8.6.  
 10. **Growth X-axis** when only **age band** (no DOB)—eng must lock age representation before visual finalization.  
 11. **WHO → CDC chart switch** at 24 mo—single screen vs handoff UX.  
-12. **Share token** rotation UI—M1 vs defer.  
-13. **Sodium/sugar defaults** read-only vs editable in Settings.  
+12. **Share link revoke / rotate** — M1 vs M1.1 (PRD §14.2 explainer).  
+13. ~~**Sodium/sugar**~~ **Locked:** **Defaults + user-adjustable** in Settings — §5.19.  
 14. **Today:** sodium row placement—inside hero card vs separate card (a11y scan).
 
 ---
 
 ## 10. Handoff checklist
 
-- [ ] PO approves copy deck **C1–C17** and screen list (incl. §5.16–5.19, forgot/reset auth).  
+- [ ] PO approves copy deck **C1–C19** and screen list (incl. §5.16–5.19, forgot/reset auth, §5.9b feed log).  
 - [ ] Frontend: tokens as CSS variables / Tailwind theme.  
 - [ ] QA: cross-reference **acceptance criteria** in PRD §11 with **states** above.  
 - [ ] Optional: Figma file created from this spec (same section numbering).
@@ -683,3 +705,4 @@ Each block lists: **purpose**, **layout (top → bottom)**, **components**, **st
 | 0.6 | 2026-04-06 | §9 pointer to PRD §14.1 **PO-first** resolution order. |
 | 0.7 | 2026-04-06 | §5.2 + §9: **email + password** auth locked (PRD Q1). |
 | 0.8 | 2026-04-06 | Forgot-password + reset screens; **8-char** password; Today **mama + child** greeting (PRD Q6); C15–C17; handoff C1–C17. |
+| 0.9 | 2026-04-06 | **Indonesia** city dropdown §5.3; milk mode §5.8; **generic meal ideas** C18; **§5.9b** feed log; Settings **editable** mindful lines C19; §9 closures. |
