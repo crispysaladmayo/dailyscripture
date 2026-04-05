@@ -694,10 +694,10 @@ textarea:focus-visible,
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.15rem;
+  gap: 0.1rem;
   min-height: 44px;
-  padding: 0.35rem;
-  font-size: 0.6875rem;
+  padding: 0.3rem 0.2rem;
+  font-size: 0.625rem;
   font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
@@ -1051,6 +1051,272 @@ textarea:focus-visible,
 
 .footer-links a {
   color: var(--text-muted);
+}
+
+/* §5.16 Public shared recipe (no app chrome) */
+.public-recipe-page {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+.public-recipe-page__inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-page-md);
+  padding-bottom: 2rem;
+}
+
+.public-recipe-page .wordmark {
+  margin-bottom: 1.5rem;
+}
+
+.public-recipe-page .public-recipe__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+
+.public-recipe-page .public-recipe__meta {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin: 0 0 1rem;
+}
+
+.public-recipe-page .public-recipe__nutrition {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+}
+
+.public-recipe-page .public-recipe__h2 {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.public-recipe-page .public-recipe__list {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.public-recipe-page .public-recipe__list li {
+  margin-bottom: 0.5rem;
+}
+
+.public-recipe-page .public-recipe__steps li {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.public-recipe-page .public-recipe__footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+@media print {
+  .public-recipe-page {
+    background: #fff;
+  }
+
+  .public-recipe-page .public-recipe__wordmark-link a {
+    color: #000;
+    text-decoration: none;
+    pointer-events: none;
+  }
+
+  .public-recipe-page .public-recipe__footer {
+    border-color: #ccc;
+    color: #333;
+  }
+
+  .public-recipe-page .public-recipe__list li,
+  .public-recipe-page .public-recipe__steps li {
+    page-break-inside: avoid;
+  }
+}
+
+/* §5.17 Meal prep */
+.meal-prep-week {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.meal-prep-day {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.meal-prep-day summary {
+  list-style: none;
+  padding: 0.875rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meal-prep-day summary::-webkit-details-marker {
+  display: none;
+}
+
+.meal-prep-day summary::after {
+  content: "▾";
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.meal-prep-day[open] summary::after {
+  content: "▴";
+}
+
+.meal-prep-day__body {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.meal-slot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.9375rem;
+}
+
+.meal-slot:last-child {
+  border-bottom: none;
+}
+
+.meal-slot__label {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  min-width: 5rem;
+}
+
+.meal-slot__note-hint {
+  font-size: 0.75rem;
+  color: var(--info-soft-text);
+  margin-top: 0.35rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .meal-prep-week--responsive {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+  }
+
+  .meal-prep-week--responsive .meal-prep-day {
+    min-height: 200px;
+  }
+
+  .meal-prep-week--responsive .meal-prep-day summary {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.8125rem;
+  }
+
+  .meal-prep-week--responsive .meal-prep-day__body {
+    padding: 0.5rem;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .meal-prep-week--responsive .meal-slot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* §5.18 Growth chart mock */
+.growth-seg {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.growth-seg button {
+  flex: 1;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 2px solid var(--border-subtle);
+  background: var(--surface);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.growth-seg button[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-tint);
+}
+
+.growth-chart {
+  position: relative;
+  height: 200px;
+  margin: 1rem 0;
+  border-radius: var(--radius-card);
+  background: linear-gradient(
+    180deg,
+    rgba(231, 229, 228, 0.35) 0%,
+    rgba(254, 243, 242, 0.5) 35%,
+    rgba(231, 229, 228, 0.35) 70%,
+    rgba(231, 229, 228, 0.5) 100%
+  );
+  border: 1px solid var(--border-subtle);
+}
+
+.growth-chart__axis {
+  position: absolute;
+  bottom: 0.35rem;
+  left: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.growth-chart__dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transform: translate(-50%, 50%);
+}
+
+.growth-form {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
 @media (min-width: 768px) {

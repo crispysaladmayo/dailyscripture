@@ -132,9 +132,7 @@
         });
         document.getElementById("share-print").addEventListener("click", function () {
           closeShare();
-          var q = new URLSearchParams(location.search);
-          q.set("print", "1");
-          window.open("recipe-detail.html?" + q.toString(), "_blank");
+          window.open("public-recipe.html?print=1", "_blank");
         });
         document.getElementById("share-copy-text").addEventListener("click", function () {
           closeShare();

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Chicken &amp; carrot rice bowl — Shared recipe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="public-recipe-page">
+    <article class="public-recipe-page__inner">
+      <p class="wordmark public-recipe__wordmark-link" lang="en">
+        <a href="index.html" style="text-decoration: none; color: inherit">Suppa</a>
+      </p>
+      <h1 class="public-recipe__title">Chicken &amp; carrot rice bowl</h1>
+      <p class="public-recipe__meta">Total time ~35 min · Active ~15 min</p>
+      <p class="public-recipe__nutrition">
+        Per serving (estimate): about 320 calories, 18g protein, 30g carbs, and 12g fat—rough numbers for planning, not a
+        label.
+      </p>
+
+      <h2 class="public-recipe__h2">Ingredients</h2>
+      <ul class="public-recipe__list">
+        <li>Cooked rice, 2 cups</li>
+        <li>Chicken thigh, diced</li>
+        <li>Carrot, sliced</li>
+        <li>Garlic, oil, salt</li>
+      </ul>
+
+      <h2 class="public-recipe__h2">Steps</h2>
+      <ol class="public-recipe__list public-recipe__steps">
+        <li>Sauté chicken until cooked through.</li>
+        <li>Add carrot and cook until tender.</li>
+        <li>Fold in rice; season to taste.</li>
+      </ol>
+
+      <footer class="public-recipe__footer">
+        <p style="margin: 0 0 0.5rem">General food information only—not medical advice.</p>
+        <p style="margin: 0">Made with Suppa · Recipe only—no child or account information is included on this page.</p>
+      </footer>
+    </article>
+    <script>
+      if (new URLSearchParams(location.search).get("print") === "1") {
+        window.addEventListener("load", function () {
+          setTimeout(function () {
+            window.print();
+          }, 200);
+        });
+      }
+    </script>
+  </body>
+</html>
