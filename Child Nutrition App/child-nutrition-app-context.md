@@ -8,6 +8,8 @@
 
 **Product / brand name:** **Suppa** — naming extensions (SuppaMom, SuppaRecipe, etc.) and voice rules: [`suppa-brand-framework.md`](./suppa-brand-framework.md).
 
+**GitHub repository:** [https://github.com/crispysaladmayo/suppa](https://github.com/crispysaladmayo/suppa) — canonical remote for this product (code, prototype, and docs may also live in the wider `Alvin Cursor` workspace; align pushes with this repo when shipping Suppa).
+
 ---
 
 ## Project brief
