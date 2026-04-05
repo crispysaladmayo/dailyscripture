@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Today</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-frame">
+      <header class="top-bar">
+        <div>
+          <p class="overline">Primary caregiver</p>
+          <p class="display" style="font-size: 1.25rem">Good afternoon</p>
+          <a class="child-pill" href="settings.html">Maya · 3–5 years</a>
+        </div>
+        <a href="settings.html" class="top-bar__settings" aria-label="Settings">⚙</a>
+      </header>
+
+      <div class="disclaimer" data-disclaimer>
+        <span
+          >This app shares general food ideas, not medical advice.
+          <button type="button" class="disclaimer__expand" data-disclaimer-expand aria-expanded="false">
+            Learn more
+          </button></span
+        >
+        <div class="disclaimer__full" data-disclaimer-full hidden id="disc-full">
+          This app does not diagnose or treat conditions. For feeding or allergy concerns, talk with your
+          pediatrician or a registered dietitian.
+        </div>
+      </div>
+
+      <main>
+        <section class="card" aria-labelledby="today-heading">
+          <h2 id="today-heading" class="title" style="font-size: 1.25rem">Today for Maya</h2>
+          <p class="estimate-disclaimer">Numbers are estimates from your quick logs—not exact intake.</p>
+
+          <div class="macro-bar macro-bar--energy" role="group" aria-label="Energy today">
+            <div class="macro-bar__head">
+              <span class="macro-bar__label">Energy</span>
+              <span class="macro-bar__vals"><span class="macro-bar__tilde">~</span>820 / 1600 kcal</span>
+            </div>
+            <div class="macro-bar__track" aria-hidden="true">
+              <div class="macro-bar__fill" style="width: 51%"></div>
+            </div>
+          </div>
+
+          <div class="macro-bar" role="group" aria-label="Protein today">
+            <div class="macro-bar__head">
+              <span class="macro-bar__label">Protein</span>
+              <span class="macro-bar__vals"><span class="macro-bar__tilde">~</span>12 / 30 g</span>
+            </div>
+            <div class="macro-bar__track" aria-hidden="true">
+              <div class="macro-bar__fill" style="width: 40%"></div>
+            </div>
+          </div>
+
+          <div class="macro-bar" role="group" aria-label="Carbohydrates today">
+            <div class="macro-bar__head">
+              <span class="macro-bar__label">Carbs</span>
+              <span class="macro-bar__vals"><span class="macro-bar__tilde">~</span>140 / 190 g</span>
+            </div>
+            <div class="macro-bar__track" aria-hidden="true">
+              <div class="macro-bar__fill" style="width: 74%"></div>
+            </div>
+          </div>
+
+          <div class="macro-bar" role="group" aria-label="Fat today">
+            <div class="macro-bar__head">
+              <span class="macro-bar__label">Fat</span>
+              <span class="macro-bar__vals"><span class="macro-bar__tilde">~</span>28 / 53 g</span>
+            </div>
+            <div class="macro-bar__track" aria-hidden="true">
+              <div class="macro-bar__fill" style="width: 53%"></div>
+            </div>
+          </div>
+
+          <p class="caption" style="margin-top: 0.75rem">Aim for balance today—not perfection.</p>
+        </section>
+
+        <section aria-labelledby="tips-heading">
+          <h2 id="tips-heading" class="overline">Tips for you</h2>
+          <article class="card card--hint" role="status" aria-label="Tip">
+            <h3 class="card__title">Today looks light on protein.</h3>
+            <p class="card__body">Try eggs, beans, yogurt, or a small piece of fish with the next meal.</p>
+          </article>
+          <article class="card card--hint" role="status" aria-label="Tip">
+            <h3 class="card__title">Overall energy is still climbing.</h3>
+            <p class="card__body">A balanced snack can help—pair fruit with a protein or dairy food.</p>
+          </article>
+        </section>
+
+        <section class="meal-ideas" aria-labelledby="meal-ideas-heading">
+          <h2 id="meal-ideas-heading" class="overline">Meal ideas for today</h2>
+          <div class="meal-ideas__scroll" role="list">
+            <a class="meal-idea-card" href="recipe-detail.html" role="listitem">
+              <div class="meal-idea-card__thumb" aria-hidden="true"></div>
+              <div class="meal-idea-card__body">
+                <h3 class="meal-idea-card__title">Chicken &amp; carrot rice bowl</h3>
+                <div class="badge-row">
+                  <span class="badge badge--gap">Helps with protein</span>
+                  <span class="badge badge--safe">Safe for Maya</span>
+                </div>
+              </div>
+            </a>
+            <a class="meal-idea-card" href="recipe-detail.html" role="listitem">
+              <div class="meal-idea-card__thumb" aria-hidden="true"></div>
+              <div class="meal-idea-card__body">
+                <h3 class="meal-idea-card__title">Simple chicken soup</h3>
+                <div class="badge-row">
+                  <span class="badge badge--gap">Helps with protein</span>
+                  <span class="badge badge--safe">Safe for Maya</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <a class="btn btn--ghost" href="fridge.html" style="margin-top: 0.5rem">Cook from fridge</a>
+      </main>
+
+      <div class="sticky-cta">
+        <a class="btn btn--primary" href="log-add.html">Log a meal</a>
+      </div>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a href="today.html" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>
+        Today
+      </a>
+      <a href="log-week.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 8v8M8 12h8" /></svg>
+        Log
+      </a>
+      <a href="fridge.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" /><path d="M5 8h14" /></svg>
+        Fridge
+      </a>
+      <a href="recipes.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h5v18H6zM13 3h5v18h-5z" /></svg>
+        Recipes
+      </a>
+    </nav>
+    <script src="app.js"></script>
+  </body>
+</html>

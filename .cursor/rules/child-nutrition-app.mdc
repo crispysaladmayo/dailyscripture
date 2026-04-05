@@ -1,0 +1,12 @@
+---
+description: Auto-load context for any work in the Child Nutrition App project folder
+globs: Child Nutrition App/**
+---
+
+# Child Nutrition App — Project Context
+
+When working on any file in this folder, load `child-nutrition-app-context.md` as the canonical reference before doing any work.
+
+Do not regenerate context that belongs in that file. Reference the file. If a task conflicts with what's in that file, flag it.
+
+**Source of truth:** `Child Nutrition App/child-nutrition-app-context.md`
