@@ -20,6 +20,8 @@ cd android
 
 After you push this repo to GitHub, run workflow **“Catholic Daily App — build debug APK”** (or push a change under `Catholic Daily App/android/`). Download the **`catholic-daily-app-debug`** artifact — it contains `app-debug.apk`.
 
+The workflow links this folder to `android-ci` (no spaces) before Gradle runs — spaces in `Catholic Daily App` can break Android tooling on Linux runners. CI uses **JDK 21** and **`gradle/actions/setup-gradle`** for caching.
+
 ## Readings bundle in the app
 
 1. Build a DB from the pipeline:

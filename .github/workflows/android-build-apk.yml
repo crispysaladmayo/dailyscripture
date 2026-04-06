@@ -13,9 +13,6 @@ on:
 jobs:
   apk:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Catholic Daily App/android
 
     steps:
       - uses: actions/checkout@v4
@@ -23,10 +20,9 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
 
-      # Platform 35 required by androidx.core:core-ktx:1.15+. Omit explicit build-tools;35.0.0 — that
-      # package is often missing on runners; AGP downloads the correct build-tools during the build.
+      # Spaces in "Catholic Daily App" can break Android/Gradle paths on Linux CI; build via symlink.
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
         with:
@@ -34,11 +30,25 @@ jobs:
             platform-tools
             platforms;android-35
 
+      - name: Link Android project to a path without spaces
+        run: |
+          set -eux
+          SRC="${GITHUB_WORKSPACE}/Catholic Daily App/android"
+          test -d "$SRC"
+          ln -sfn "$SRC" "${GITHUB_WORKSPACE}/android-ci"
+
+      - name: Set up Gradle (cache + wrapper validation)
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Grant execute permission for gradlew
+        working-directory: android-ci
         run: chmod +x gradlew
 
       - name: Assemble debug APK
-        run: ./gradlew :app:assembleDebug --no-daemon --stacktrace
+        working-directory: android-ci
+        run: |
+          echo "ANDROID_HOME=${ANDROID_HOME:-unset}"
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
