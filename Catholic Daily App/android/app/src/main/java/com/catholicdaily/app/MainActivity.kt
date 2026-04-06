@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 val state by vm.homeContent.collectAsStateWithLifecycle()
                 val lifecycleOwner = LocalLifecycleOwner.current
                 LaunchedEffect(lifecycleOwner) {
-                    lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                         vm.refreshLiturgicalToday()
                     }
                 }
